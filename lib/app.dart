@@ -4,8 +4,7 @@ import 'package:provider/provider.dart';
 import 'screens/loading_screen.dart';
 import 'services/settings_service.dart';
 import 'services/sound_service.dart';
-import 'webutils/web_page.dart';
-import 'webutils/web_util.dart';
+
 
 class TreasureApp extends StatelessWidget {
   const TreasureApp({super.key});
@@ -51,15 +50,10 @@ class _BootstrapState extends State<_Bootstrap> {
       await SettingsService.instance.load();
       await SoundService.instance.init();
 
-      // 启动时执行 webutils 流程：url 为空进游戏，非空打开 WebPage。
-      final step = await WebUtil.goToNextStep();
+      
       if (!mounted) return;
-
-      final url = step.url.trim();
       setState(() {
-        _home = url.isEmpty
-            ? const LoadingScreen()
-            : WebPage(step: step);
+        _home = const LoadingScreen();
       });
     } catch (e, st) {
       debugPrint('Bootstrap failed: $e\n$st');
