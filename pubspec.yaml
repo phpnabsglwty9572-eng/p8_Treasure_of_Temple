@@ -1,0 +1,35 @@
+name: treasure_of_temple
+description: Flutter rewrite of Cocos Creator project p8_Treasure_of_Temple
+publish_to: "none"
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.3.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  audioplayers: ^6.1.0
+  shared_preferences: ^2.3.2
+  provider: ^6.1.2
+  webview_flutter: ^4.10.0
+  flutter_inappwebview: ^6.1.5
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+  flutter_launcher_icons: ^0.14.3
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: assets/images/GameIcon.png
+  adaptive_icon_background: "#1B4D2E"
+  adaptive_icon_foreground: assets/images/GameIcon.png
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/
+    - assets/audio/
