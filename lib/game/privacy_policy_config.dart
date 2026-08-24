@@ -3,5 +3,5 @@ class PrivacyPolicyConfig {
   PrivacyPolicyConfig._();
 
   /// 在这里填写隐私政策页面地址。
-  static const String url = 'https://www.example.com/privacy';
+  static const String url = 'https://docs.google.com/document/d/1UMz3kmv3fbchs-LwTiDjkiUZXscZtFchjYHROViUDRM/edit?usp=sharing';
 }
