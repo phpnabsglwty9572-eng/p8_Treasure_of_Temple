@@ -4,10 +4,11 @@ import 'package:flutter/material.dart';
 
 import '../game/game_constants.dart';
 
-/// Fills any screen (phone / tablet) with the fixed 720×1280 design canvas.
+/// Fits the fixed 720×1280 design canvas into any screen without stretching.
 ///
-/// Uses cover scaling: no letterbox bars; overflow is clipped and centered.
-/// UI and background stay aligned because they share one design space.
+/// Uses contain scaling and letterboxing so tall devices (e.g. iPhone 17)
+/// keep the original aspect ratio. UI and background stay aligned because
+/// they share one design space.
 class DesignStage extends StatelessWidget {
   const DesignStage({
     super.key,
@@ -32,24 +33,18 @@ class DesignStage extends StatelessWidget {
 
           const dw = GameConstants.designWidth;
           const dh = GameConstants.designHeight;
-          final scale = math.max(sw / dw, sh / dh);
+          final scale = math.min(sw / dw, sh / dh);
 
-          return ClipRect(
+          return Center(
             child: SizedBox(
-              width: sw,
-              height: sh,
-              child: Center(
+              width: dw * scale,
+              height: dh * scale,
+              child: FittedBox(
+                fit: BoxFit.contain,
                 child: SizedBox(
-                  width: dw * scale,
-                  height: dh * scale,
-                  child: FittedBox(
-                    fit: BoxFit.fill,
-                    child: SizedBox(
-                      width: dw,
-                      height: dh,
-                      child: child,
-                    ),
-                  ),
+                  width: dw,
+                  height: dh,
+                  child: child,
                 ),
               ),
             ),
