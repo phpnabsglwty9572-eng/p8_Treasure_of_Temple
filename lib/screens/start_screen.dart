@@ -23,7 +23,8 @@ class _StartScreenState extends State<StartScreen> {
     super.initState();
     final s = SettingsService.instance;
     _shown = s.privacyShown;
-    _agreed = s.privacyAgreed;
+    _agreed = true;
+    SettingsService.instance.setPrivacyAgreed(true);
   }
 
   Future<void> _onStart() async {
@@ -81,10 +82,10 @@ class _StartScreenState extends State<StartScreen> {
     return Scaffold(
       backgroundColor: const Color(0xFF1A120C),
       body: DesignStage(
+        backgroundAsset: 'assets/images/LodingBG.png',
         child: Stack(
           fit: StackFit.expand,
           children: [
-            Image.asset('assets/images/LodingBG.png', fit: BoxFit.fill),
             Column(
               children: [
                 const Spacer(flex: 5),
@@ -93,22 +94,29 @@ class _StartScreenState extends State<StartScreen> {
                   child: Image.asset('assets/images/Start_01.png', width: 280),
                 ),
                 const SizedBox(height: 28),
-                GestureDetector(
-                  onTap: _onCheck,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        _agreed
-                            ? 'assets/images/check.png'
-                            : 'assets/images/uncheck.png',
-                        width: 32,
-                        height: 32,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    GestureDetector(
+                      onTap: _onCheck,
+                      behavior: HitTestBehavior.opaque,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8),
+                        child: Image.asset(
+                          _agreed
+                              ? 'assets/images/check.png'
+                              : 'assets/images/uncheck.png',
+                          width: 32,
+                          height: 32,
+                        ),
                       ),
-                      const SizedBox(width: 8),
-                      GestureDetector(
-                        onTap: _openPrivacy,
-                        child: const Text(
+                    ),
+                    GestureDetector(
+                      onTap: _openPrivacy,
+                      behavior: HitTestBehavior.opaque,
+                      child: const Padding(
+                        padding: EdgeInsets.all(8),
+                        child: Text(
                           'Privacy Policy',
                           style: TextStyle(
                             color: Colors.white,
@@ -117,8 +125,8 @@ class _StartScreenState extends State<StartScreen> {
                           ),
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
                 const Spacer(flex: 2),
               ],

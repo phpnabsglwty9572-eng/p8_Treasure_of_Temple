@@ -80,10 +80,10 @@ class _LoadingScreenState extends State<LoadingScreen>
     return Scaffold(
       backgroundColor: const Color(0xFF1A120C),
       body: DesignStage(
+        backgroundAsset: 'assets/images/LodingBG.png',
         child: Stack(
           fit: StackFit.expand,
           children: [
-            Image.asset('assets/images/LodingBG.png', fit: BoxFit.fill),
             Align(
               alignment: const Alignment(0, 0.55),
               child: Padding(

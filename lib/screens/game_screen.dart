@@ -52,15 +52,10 @@ class _GameScreenState extends State<GameScreen> {
     return Scaffold(
       backgroundColor: const Color(0xFF1A120C),
       body: DesignStage(
+        backgroundAsset: 'assets/images/GameBG_01.png',
         child: Stack(
           clipBehavior: Clip.none,
           children: [
-            Positioned.fill(
-              child: Image.asset(
-                'assets/images/GameBG_01.png',
-                fit: BoxFit.fill,
-              ),
-            ),
             Positioned(
               left: GameConstants.chromeLeft,
               top: GameConstants.chromeTop,

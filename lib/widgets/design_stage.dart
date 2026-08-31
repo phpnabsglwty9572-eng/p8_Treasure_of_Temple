@@ -6,17 +6,19 @@ import '../game/game_constants.dart';
 
 /// Fits the fixed 720×1280 design canvas into any screen without stretching.
 ///
-/// Uses contain scaling and letterboxing so tall devices (e.g. iPhone 17)
-/// keep the original aspect ratio. UI and background stay aligned because
-/// they share one design space.
+/// UI uses contain scaling so the board, pieces, and buttons keep their
+/// original aspect ratio. Optional [backgroundAsset] is drawn behind that
+/// canvas with cover, so it fills the full screen (no letterbox bars).
 class DesignStage extends StatelessWidget {
   const DesignStage({
     super.key,
     required this.child,
+    this.backgroundAsset,
     this.backgroundColor = const Color(0xFF1A120C),
   });
 
   final Widget child;
+  final String? backgroundAsset;
   final Color backgroundColor;
 
   @override
@@ -35,19 +37,34 @@ class DesignStage extends StatelessWidget {
           const dh = GameConstants.designHeight;
           final scale = math.min(sw / dw, sh / dh);
 
-          return Center(
-            child: SizedBox(
-              width: dw * scale,
-              height: dh * scale,
-              child: FittedBox(
-                fit: BoxFit.contain,
+          return Stack(
+            fit: StackFit.expand,
+            children: [
+              if (backgroundAsset != null)
+                Positioned.fill(
+                  child: IgnorePointer(
+                    child: Image.asset(
+                      backgroundAsset!,
+                      fit: BoxFit.cover,
+                      alignment: Alignment.center,
+                    ),
+                  ),
+                ),
+              Center(
                 child: SizedBox(
-                  width: dw,
-                  height: dh,
-                  child: child,
+                  width: dw * scale,
+                  height: dh * scale,
+                  child: FittedBox(
+                    fit: BoxFit.contain,
+                    child: SizedBox(
+                      width: dw,
+                      height: dh,
+                      child: child,
+                    ),
+                  ),
                 ),
               ),
-            ),
+            ],
           );
         },
       ),

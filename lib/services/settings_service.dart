@@ -16,12 +16,12 @@ class SettingsService {
   static final SettingsService instance = SettingsService._();
 
   bool privacyShown = false;
-  bool privacyAgreed = false;
+  bool privacyAgreed = true;
 
   Future<void> load() async {
     final prefs = await SharedPreferences.getInstance();
     privacyShown = prefs.getString(kPrivacyShown) == '1';
-    privacyAgreed = prefs.getString(kPrivacyAgreed) == '1';
+    privacyAgreed = true;
   }
 
   Future<void> setPrivacyShown(bool v) async {
